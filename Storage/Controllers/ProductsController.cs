@@ -14,19 +14,20 @@ namespace Storage.Controllers
     {
         private readonly StorageContext _context;
 
+        //konstruktor, StorageContext är databaskopplingrn 
         public ProductsController(StorageContext context)
         {
             _context = context;
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()//get the home page?
         {
             return View(await _context.Product.ToListAsync());
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id)//get the spefcific ´row of info according to its id, is not yet used in the project
         {
             if (id == null)
             {
@@ -43,8 +44,8 @@ namespace Storage.Controllers
             return View(product);
         }
 
-        // GET: Products/Create
-        public IActionResult Create()
+        // GET: Products/Create 
+        public IActionResult Create() //is called when create button is clicked
         {
             return View();
         }

@@ -8,6 +8,7 @@ namespace Storage
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            //creates a srvice connection to database named StorageContext-cd9928e5-9e0c-492b-8a84-1181434a4d5f
             builder.Services.AddDbContext<StorageContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("StorageContext") ?? throw new InvalidOperationException("Connection string 'StorageContext' not found.")));
 
@@ -24,16 +25,22 @@ namespace Storage
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseHttpsRedirection();//Adds middleware for redirecting HTTP Requests to HTTPS.
+            app.UseStaticFiles();//Enables static file serving for the current request path, i.e. js, css files 
 
             app.UseRouting();
 
             app.UseAuthorization();
 
+            /*app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");*/
+
+            //changed the default routing from Home/Index to Product/Index
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Products}/{action=Index}/{id?}");
+
 
             app.Run();
         }
