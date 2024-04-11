@@ -15,7 +15,7 @@ namespace Storage.Models
 
         [DataType(DataType.Date)]
         public DateTime OrderDate { get; set; }
-        public string? Category { get; set; }
+        public string Category { get; set; }
         public string Shelf { get; set; }
 
         public int Count { get; set; }

@@ -26,6 +26,20 @@ namespace Storage.Controllers
             return View(await _context.Product.ToListAsync());
         }
 
+        public async Task<IActionResult> prodViewList()//get the home page?
+        {
+            
+            IEnumerable<ProductViewModel> model = await _context.Product.Select(p => new ProductViewModel
+            {
+                Name = p.Name,
+                Price = p.Price,
+                Count = p.Count,
+                InventoryValue = p.Price * p.Count
+            }).ToListAsync();
+
+            return View(model);
+        }
+
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)//get the spefcific ´row of info according to its id, is not yet used in the project
         {
