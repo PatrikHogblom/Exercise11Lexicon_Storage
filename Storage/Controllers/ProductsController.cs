@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Pipelines;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Storage.Data;
 using Storage.Models;
 
@@ -21,12 +23,12 @@ namespace Storage.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()//get the home page?
+        public async Task<IActionResult> Index()
         {
             return View(await _context.Product.ToListAsync());
         }
 
-        public async Task<IActionResult> prodViewList()//get the home page?
+        public async Task<IActionResult> prodViewList()
         {
             
             IEnumerable<ProductViewModel> model = await _context.Product.Select(p => new ProductViewModel
@@ -38,6 +40,16 @@ namespace Storage.Controllers
             }).ToListAsync();
 
             return View(model);
+        }
+        //[HttpGet]
+        [Route("Products/Filter/{category?}")]
+        public async Task<IActionResult> Filter(string category)
+        {
+            var filteredList = from s in _context.Product
+                               where category == null || s.Category.ToLower().Trim() == category.ToLower().Trim()
+                               select s;
+
+            return View(await filteredList.ToListAsync());
         }
 
         // GET: Products/Details/5
