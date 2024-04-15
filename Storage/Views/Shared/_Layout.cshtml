@@ -29,6 +29,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
                         </li>
+                        <!--Added nav for access to site to show specific productView which stored specific values from the database-->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="prodViewList">ProductsView</a>
+                        </li>
+                        <!--Added nav for access to site to filter out products from the database by search bar-->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Filter">Filter Products</a>
+                        </li>
                     </ul>
                 </div>
             </div>
